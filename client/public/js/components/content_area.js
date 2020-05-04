@@ -714,7 +714,7 @@ var ValuesForm = function (_Component) {
         _react2.default.createElement(
           'div',
           { className: 'input-group md-form form-sm form-2 pl-0' },
-          _react2.default.createElement('input', { id: 'insertName', className: 'form-control my-0 py-1 red-border', type: 'text', placeholder: 'Insert DAPP name', 'aria-label': 'Search' })
+          _react2.default.createElement('input', { id: 'insertName', className: 'form-control my-0 py-1 red-border', type: 'text', placeholder: 'Insert Address / absolute PATH', 'aria-label': 'Search' })
         ),
         _react2.default.createElement(
           'form',

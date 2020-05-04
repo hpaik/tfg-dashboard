@@ -42,7 +42,7 @@ class ValuesForm extends Component {
       <div id="valuesForm">
         <h3>{this.props.formTitle}</h3>
         <div className="input-group md-form form-sm form-2 pl-0">
-          <input  id="insertName" className="form-control my-0 py-1 red-border" type="text" placeholder="Insert DAPP name" aria-label="Search" />
+          <input  id="insertName" className="form-control my-0 py-1 red-border" type="text" placeholder="Insert Address / absolute PATH" aria-label="Search" />
         </div>
         <form>
           {items}
