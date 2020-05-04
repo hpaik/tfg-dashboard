@@ -1,0 +1,75 @@
+@import url( 'https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700');
+#uml{
+  width: 100%;
+}
+#buttons{
+    margin-top: 20px;
+    position: absolute;
+}
+
+#insertName{
+  margin-top: 20px;
+  margin-bottom: 40px;
+}
+.col{
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: $background;
+}
+.col-3{
+  background-color: $background;
+  .row{
+    padding: 20px 20px 20px 20px;
+    padding-top: 0px;
+    height: 50%;
+  }
+  #optiondisplayer{
+    margin-bottom: 20px;
+    h3{
+      font-size: 30px;
+      font-weight: 400;
+      color: black;
+    }
+  }
+  #valuesForm{
+    width: 100%;
+    padding: 20px 20px 20px 20px;
+    background-color: $electricBlue;
+    form{
+      margin-top: 20px;
+    }
+    h3{
+      font-size: 30px;
+      font-weight: 400;
+      color: $lightGrey;
+    }
+    button {
+      margin:0 auto;
+      display:block;
+    }
+    label{
+      font-size: 20px;
+      font-weight: 300;
+      color: $lightGrey;
+    }
+  }
+
+}
+.col-9{
+  background-color: #ffffff;
+}
+.big-row{
+  height: 90vh;
+}
+svg {
+  display: block;
+  margin: auto;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  height: 900px;
+  width: 100%;
+}
+.col-12{
+  margin-top: 10px;
+  margin-bottom: 10px;
+}

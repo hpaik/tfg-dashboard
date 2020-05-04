@@ -1,0 +1,19 @@
+#content-area{
+  background-color: #f2f2f2;
+  margin-left: 280px;
+  padding: 15px;
+  height: 100vh;
+  .heading{
+    h1{
+      color: purple;
+      font-size: 1.4rem;
+      font-weight: 300;
+      margin-bottom: 10px;
+    }
+    p{
+      color: #1b1b1b;
+      font-size: 0.8rem;
+      margin-bottom: 10px;
+    }
+  }
+}
