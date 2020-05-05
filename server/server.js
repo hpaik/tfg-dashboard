@@ -13,8 +13,10 @@ app.use(bodyParser.json());
 
 app.get('/', async function(req, res){
   let address = req.query.address;
+  let option = req.query.option0;
+
   try{
-    let data = await MySol2Uml.sol2uml(address);
+    let data = await MySol2Uml.sol2uml(address, option);
     res.set('Access-Control-Allow-Origin', '*');
     res.send(data);
   }catch(e){

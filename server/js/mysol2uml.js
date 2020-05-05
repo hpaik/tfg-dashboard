@@ -142,11 +142,11 @@ function modifyUml(_uml, _classStereoType){
 }
 
 
-exports.sol2uml = async (_fileFolderAddress) =>{
+exports.sol2uml = async (_fileFolderAddress, _contractTypeToHide) =>{
     let variables = await umlClassesParser(_fileFolderAddress);
     let uml = variables[0];
     let path = variables[1];
     let filteredUml = await filterUmlClasses(uml);
-    let rawSvg = await generateOutputFile(modifyUml(filteredUml,'None'), path);
+    let rawSvg = await generateOutputFile(modifyUml(filteredUml, _contractTypeToHide), path);
     return rawSvg;
 };

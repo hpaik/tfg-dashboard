@@ -15,7 +15,7 @@ class Container extends Component {
           </div>
           <div className="col-3">
             <div className="row">
-              <ValuesForm formTitle="UML Generator" elements={['Abstract', 'Interface', 'Library']}/>
+              <ValuesForm formTitle="UML Generator" elements={['Abstract', 'Interface', 'Library','All']}/>
             </div>
             <div className="row">
               <UmlStyler />

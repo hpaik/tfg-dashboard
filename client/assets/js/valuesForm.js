@@ -22,15 +22,36 @@ class ValuesForm extends Component {
     d3.select("svg").attr("id", "svgUml");
   }
 
+  checkedElements() {
+    // The selected are the ones the user wishes to hide
+    let selected = [];
+    let item;
+    for (const [index, value] of this.props.elements.entries()) {
+      item = document.getElementById(value);
+      if (item.checked) {
+        selected.push(value);
+      }
+    }
+    return selected;
+  }
+
+  createQuery() {
+    let query = `http://localhost:8080/?address=${this.readInput()}`;
+    for (const [index, value] of this.checkedElements().entries()) {
+      query += `&option${index}=${value}`;
+    }
+    return query;
+  }
+
   getData (){
-    let userInput = this.readInput();
+    this.createQuery();
     var xhr = new XMLHttpRequest();
     xhr.addEventListener('load', ()=>{
       // console.log(xhr.response);
       this.appendData(xhr.response);
       this.enableZoom("svgUml");
     });
-    xhr.open('GET', `http://localhost:8080/?address=${userInput}`);
+    xhr.open('GET', this.createQuery());
     xhr.send();
   }
 

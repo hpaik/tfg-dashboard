@@ -125,7 +125,7 @@ var Container = function (_Component) {
             _react2.default.createElement(
               'div',
               { className: 'row' },
-              _react2.default.createElement(_valuesForm2.default, { formTitle: 'UML Generator', elements: ['Abstract', 'Interface', 'Library'] })
+              _react2.default.createElement(_valuesForm2.default, { formTitle: 'UML Generator', elements: ['Abstract', 'Interface', 'Library', 'All'] })
             ),
             _react2.default.createElement(
               'div',
@@ -671,25 +671,11 @@ var ValuesForm = function (_Component) {
       d3.select("svg").attr("id", "svgUml");
     }
   }, {
-    key: 'getData',
-    value: function getData() {
-      var _this2 = this;
-
-      var userInput = this.readInput();
-      var xhr = new XMLHttpRequest();
-      xhr.addEventListener('load', function () {
-        // console.log(xhr.response);
-        _this2.appendData(xhr.response);
-        _this2.enableZoom("svgUml");
-      });
-      xhr.open('GET', 'http://localhost:8080/?address=' + userInput);
-      xhr.send();
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-
-      var items = [];
+    key: 'checkedElements',
+    value: function checkedElements() {
+      // The selected are the ones the user wishes to hide
+      var selected = [];
+      var item = void 0;
       var _iteratorNormalCompletion = true;
       var _didIteratorError = false;
       var _iteratorError = undefined;
@@ -700,7 +686,10 @@ var ValuesForm = function (_Component) {
               index = _step$value[0],
               value = _step$value[1];
 
-          items.push(_react2.default.createElement(_option2.default, { key: value, type: 'checkbox', id: value, name: value, value: this.props.elements[index] }));
+          item = document.getElementById(value);
+          if (item.checked) {
+            selected.push(value);
+          }
         }
       } catch (err) {
         _didIteratorError = true;
@@ -713,6 +702,88 @@ var ValuesForm = function (_Component) {
         } finally {
           if (_didIteratorError) {
             throw _iteratorError;
+          }
+        }
+      }
+
+      return selected;
+    }
+  }, {
+    key: 'createQuery',
+    value: function createQuery() {
+      var query = 'http://localhost:8080/?address=' + this.readInput();
+      var _iteratorNormalCompletion2 = true;
+      var _didIteratorError2 = false;
+      var _iteratorError2 = undefined;
+
+      try {
+        for (var _iterator2 = this.checkedElements().entries()[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+          var _step2$value = _slicedToArray(_step2.value, 2),
+              index = _step2$value[0],
+              value = _step2$value[1];
+
+          query += '&option' + index + '=' + value;
+        }
+      } catch (err) {
+        _didIteratorError2 = true;
+        _iteratorError2 = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion2 && _iterator2.return) {
+            _iterator2.return();
+          }
+        } finally {
+          if (_didIteratorError2) {
+            throw _iteratorError2;
+          }
+        }
+      }
+
+      return query;
+    }
+  }, {
+    key: 'getData',
+    value: function getData() {
+      var _this2 = this;
+
+      this.createQuery();
+      var xhr = new XMLHttpRequest();
+      xhr.addEventListener('load', function () {
+        // console.log(xhr.response);
+        _this2.appendData(xhr.response);
+        _this2.enableZoom("svgUml");
+      });
+      xhr.open('GET', this.createQuery());
+      xhr.send();
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+
+      var items = [];
+      var _iteratorNormalCompletion3 = true;
+      var _didIteratorError3 = false;
+      var _iteratorError3 = undefined;
+
+      try {
+        for (var _iterator3 = this.props.elements.entries()[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+          var _step3$value = _slicedToArray(_step3.value, 2),
+              index = _step3$value[0],
+              value = _step3$value[1];
+
+          items.push(_react2.default.createElement(_option2.default, { key: value, type: 'checkbox', id: value, name: value, value: this.props.elements[index] }));
+        }
+      } catch (err) {
+        _didIteratorError3 = true;
+        _iteratorError3 = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion3 && _iterator3.return) {
+            _iterator3.return();
+          }
+        } finally {
+          if (_didIteratorError3) {
+            throw _iteratorError3;
           }
         }
       }
