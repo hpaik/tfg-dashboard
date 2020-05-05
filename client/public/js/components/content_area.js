@@ -545,18 +545,26 @@ var UmlStyler = function (_Component) {
   }
 
   _createClass(UmlStyler, [{
-    key: 'selectNodeSvg',
-    value: function selectNodeSvg() {
+    key: 'getInput',
+    value: function getInput() {
       var userInput = document.getElementById("contractSearch").value;
-      var contract = '#' + userInput;
-      d3.select(contract).select("polygon").attr("fill", "red");
+      return userInput;
+    }
+  }, {
+    key: 'selectContract',
+    value: function selectContract() {
+      var contract = '#' + this.getInput();
+      return contract;
+    }
+  }, {
+    key: 'findContract',
+    value: function findContract() {
+      d3.select(this.selectContract()).select("polygon").attr("fill", "red");
     }
   }, {
     key: 'clearSearch',
     value: function clearSearch() {
-      var userInput = document.getElementById("contractSearch").value;
-      var contract = '#' + userInput;
-      d3.select(contract).select("polygon").attr("fill", "#f2f2f2");
+      d3.select(this.selectContract()).select("polygon").attr("fill", "#f2f2f2");
     }
   }, {
     key: 'render',
@@ -576,7 +584,7 @@ var UmlStyler = function (_Component) {
           { id: 'buttons' },
           _react2.default.createElement(
             'button',
-            { onClick: this.selectNodeSvg.bind(this), type: 'button', className: 'btn btn-success' },
+            { onClick: this.findContract.bind(this), type: 'button', className: 'btn btn-success' },
             'Find!'
           ),
           _react2.default.createElement(
@@ -644,29 +652,35 @@ var ValuesForm = function (_Component) {
   }
 
   _createClass(ValuesForm, [{
-    key: 'handleClickSvg',
-    value: function handleClickSvg() {
+    key: 'readInput',
+    value: function readInput() {
       var userInput = document.getElementById("insertName").value;
-      d3.xml(rawData).then(function (data) {
-        d3.select("#uml").html("");
-        d3.select("#uml").node().append(data.documentElement);
-        d3.select("svg").attr("id", "svgUml");
-        var svgElement = document.getElementById("svgUml");
-        var panZoomTiger = svgPanZoom(svgElement);
-      });
+      return userInput;
+    }
+  }, {
+    key: 'enableZoom',
+    value: function enableZoom(_id) {
+      var svgElement = document.getElementById(_id);
+      var panZoomTiger = svgPanZoom(svgElement);
+    }
+  }, {
+    key: 'appendData',
+    value: function appendData(_data) {
+      d3.select("#uml").html("");
+      d3.select("#uml").append('div').html(_data);
+      d3.select("svg").attr("id", "svgUml");
     }
   }, {
     key: 'getData',
     value: function getData() {
-      var userInput = document.getElementById("insertName").value;
+      var _this2 = this;
+
+      var userInput = this.readInput();
       var xhr = new XMLHttpRequest();
       xhr.addEventListener('load', function () {
-        console.log(xhr.response);
-        d3.select("#uml").html("");
-        d3.select("#uml").append('div').html(xhr.response);
-        d3.select("svg").attr("id", "svgUml");
-        var svgElement = document.getElementById("svgUml");
-        var panZoomTiger = svgPanZoom(svgElement);
+        // console.log(xhr.response);
+        _this2.appendData(xhr.response);
+        _this2.enableZoom("svgUml");
       });
       xhr.open('GET', 'http://localhost:8080/?address=' + userInput);
       xhr.send();

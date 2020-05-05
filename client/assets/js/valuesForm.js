@@ -6,27 +6,29 @@ import Button from './button'
 
 class ValuesForm extends Component {
 
-
-  handleClickSvg () {
+  readInput() {
     let userInput = document.getElementById("insertName").value;
-    d3.xml(rawData).then(data => {
-      d3.select("#uml").html("");
-      d3.select("#uml").node().append(data.documentElement);
-      d3.select("svg").attr("id", "svgUml");
-      let svgElement = document.getElementById("svgUml");
-      let panZoomTiger = svgPanZoom(svgElement);
-    });
+    return userInput;
   }
+
+  enableZoom(_id) {
+    let svgElement = document.getElementById(_id);
+    let panZoomTiger = svgPanZoom(svgElement);
+  }
+
+  appendData(_data) {
+    d3.select("#uml").html("");
+    d3.select("#uml").append('div').html(_data);
+    d3.select("svg").attr("id", "svgUml");
+  }
+
   getData (){
-    let userInput = document.getElementById("insertName").value;
+    let userInput = this.readInput();
     var xhr = new XMLHttpRequest();
     xhr.addEventListener('load', ()=>{
-      console.log(xhr.response);
-      d3.select("#uml").html("");
-      d3.select("#uml").append('div').html(xhr.response);
-      d3.select("svg").attr("id", "svgUml");
-      let svgElement = document.getElementById("svgUml");
-      let panZoomTiger = svgPanZoom(svgElement);
+      // console.log(xhr.response);
+      this.appendData(xhr.response);
+      this.enableZoom("svgUml");
     });
     xhr.open('GET', `http://localhost:8080/?address=${userInput}`);
     xhr.send();
