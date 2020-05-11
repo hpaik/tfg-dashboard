@@ -195,7 +195,7 @@ const dotStructs = (umlClass) => {
         dotString += '}"]';
         // Add the association to the contract the struct was declared in
         // Arrowhead id is where it is PointingTowards
-        dotString += `\n"${structId}" -> ${umlClass.id} [id="To${umlClass.name}" arrowhead=diamond, weight=3]`;
+        dotString += `\n"${structId}" -> ${umlClass.id} [id="${umlClass.name}" arrowhead=diamond, weight=3]`;
     }
     return dotString;
 };
@@ -212,7 +212,7 @@ const dotEnums = (umlClass) => {
         }
         dotString += '}"]';
         // Add the association to the contract the enum was declared in
-        dotString += `\n"${enumId}" -> ${umlClass.id} [id="To${umlClass.name}" arrowhead=diamond, weight=3]`;
+        dotString += `\n"${enumId}" -> ${umlClass.id} [id="${umlClass.name}" arrowhead=diamond, weight=3]`;
     }
     return dotString;
 };
