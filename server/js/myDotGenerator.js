@@ -14,6 +14,7 @@ exports.dotUmlClass = (umlClass) => {
     dotString += dotStructs(umlClass);
     dotString += dotEnums(umlClass);
     return dotString;
+
 };
 const dotClassTitle = (umlClass) => {
     let stereoName = '';

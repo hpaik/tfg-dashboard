@@ -1,6 +1,6 @@
 webpackJsonp([1],{
 
-/***/ 239:
+/***/ 254:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10,11 +10,11 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(18);
+var _react = __webpack_require__(17);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(19);
+var _reactDom = __webpack_require__(18);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
@@ -38,7 +38,7 @@ var Sidemenu = function (_Component) {
   _createClass(Sidemenu, [{
     key: 'render',
     value: function render() {
-      var elements = ['UML Diagram', 'Network', 'Settings'];
+      var elements = ['UML-Diagram', 'Network', 'Settings'];
       var icons = ['archive', 'area-chart', 'cog'];
       var items = [];
       var _iteratorNormalCompletion = true;
@@ -91,10 +91,10 @@ var Sidemenu = function (_Component) {
   return Sidemenu;
 }(_react.Component);
 
-var sidemenu = document.getElementById('sideMenu');
+//const sidemenu = document.getElementById('sideMenu')
 
-_reactDom2.default.render(_react2.default.createElement(Sidemenu, null), sidemenu);
+//ReactDOM.render(<Sidemenu />, sidemenu)
 
 /***/ })
 
-},[239]);
+},[254]);

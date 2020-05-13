@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom'
 class Sidemenu extends Component {
 
   render () {
-    const elements = ['UML Diagram', 'Network', 'Settings'];
+    const elements = ['UML-Diagram', 'Network', 'Settings'];
     const icons = ['archive','area-chart','cog'];
     const items = [];
     for (const [index, value] of elements.entries()) {
@@ -30,6 +30,6 @@ class Sidemenu extends Component {
   }
 }
 
-const sidemenu = document.getElementById('sideMenu')
+//const sidemenu = document.getElementById('sideMenu')
 
-ReactDOM.render(<Sidemenu />, sidemenu)
+//ReactDOM.render(<Sidemenu />, sidemenu)

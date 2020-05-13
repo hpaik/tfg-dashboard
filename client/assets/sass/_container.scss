@@ -21,7 +21,6 @@
   .row{
     padding: 20px 20px 20px 20px;
     padding-top: 0px;
-    height: 50%;
   }
   #optiondisplayer{
     margin-bottom: 20px;
@@ -58,18 +57,46 @@
 .col-9{
   background-color: #ffffff;
 }
+.col-5{
+  background-color: #ffffff;
+}
+.col-4{
+  background-color: #ffffff;
+}
 .big-row{
   height: 90vh;
 }
-svg {
-  display: block;
-  margin: auto;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  height: 900px;
-  width: 100%;
+#uml{
+  svg {
+    display: block;
+    margin: auto;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    height: 900px;
+    width: 100%;
+  }
 }
+
 .col-12{
   margin-top: 10px;
   margin-bottom: 10px;
+}
+
+.row {
+  #plot1{
+    width:100%;
+    svg{
+      text{
+        font-size: 11px;
+      }
+    }
+  }
+  #plot2{
+    width:100%;
+    svg{
+      text{
+        font-size: 11px;
+      }
+    }
+  }
 }
