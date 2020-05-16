@@ -508,8 +508,10 @@ var Network = function (_Component) {
     key: 'methodNumberOfCalls',
     value: function methodNumberOfCalls(_data) {
       var _mapping = new Map();
+      var _mapping2 = new Map();
       var contractMethods = [];
       var obj = {};
+      var obj2 = {};
 
       for (var i = 0; i < _data.length; i++) {
         var decodedData = abiDecoder.decodeMethod('0x' + _data[i].input_hex).name;
@@ -517,14 +519,18 @@ var Network = function (_Component) {
         if (!contractMethods.includes(decodedData)) {
           contractMethods.push(decodedData);
           _mapping.set(decodedData, 0);
+          _mapping2.set(decodedData, _data[i].gas_used * _data[i].gas_price);
         } else {
           _mapping.set(decodedData, _mapping.get(decodedData) + 1);
+          _mapping2.set(decodedData, _mapping.get(decodedData) + _data[i].gas_used * _data[i].gas_price);
         }
       }
+      var cont = 0;
       contractMethods.forEach(function (d) {
         obj[d] = _mapping.get(d);
+        obj2[d] = _mapping2.get(d) / _mapping.get(d);
       });
-      return obj;
+      return [obj, obj2];
     }
   }, {
     key: 'getAbi',
@@ -586,12 +592,12 @@ var Network = function (_Component) {
     }()
   }, {
     key: 'drawBarChart',
-    value: function drawBarChart(_data, _htmlId) {
+    value: function drawBarChart(_data, _htmlId, _width, _height) {
       // set the dimensions and margins of the graph
       var color = d3.scaleOrdinal().domain(Object.keys(_data)).range(d3.schemeDark2);
-      var margin = { top: 20, right: 20, bottom: 20, left: 40 },
-          width = 400 - margin.left - margin.right,
-          height = 400 - margin.top - margin.bottom;
+      var margin = { top: 5, right: 5, bottom: 5, left: 5 },
+          width = _width - margin.left - margin.right,
+          height = _height - margin.top - margin.bottom;
 
       var tooltip = d3.select("body").append("div").style("position", "absolute").style("z-index", "10").style("visibility", "hidden").style("color", "white").style("background-color", "black").style("border-radius", "6px").style("padding", "5px 5px 5px 5px");
 
@@ -617,7 +623,7 @@ var Network = function (_Component) {
       Object.keys(data).forEach(function (key) {
         svg.append("rect").attr("class", "bar").attr("x", x(key)).attr("width", x.bandwidth()).attr("y", y(data[key])).attr("height", height - y(data[key])).attr("id", key).attr("fill", color(key)).on("mouseover", function (d) {
 
-          tooltip.text('Function: ' + key + '() | Number of calls: ' + data[key]);
+          tooltip.text('Function: ' + key + '() | Medium amount of gas: ' + data[key]);
           return tooltip.style("visibility", "visible");
         }).on("mousemove", function () {
           return tooltip.style("top", event.pageY - 10 + "px").style("left", event.pageX + 10 + "px");
@@ -721,7 +727,7 @@ var Network = function (_Component) {
       var _this2 = this;
 
       _methods.forEach(function (element) {
-        var p = d3.select('#' + element);
+        var p = d3.selectAll('#' + element);
         p.on("click", function () {
           var id = _this2.findMethodInUML(element);
           var contract = d3.select("#uml").select('#' + id).select("polygon");
@@ -745,9 +751,9 @@ var Network = function (_Component) {
         d3.csv("data.csv").then(function (data) {
           return _this3.methodNumberOfCalls(data);
         }).then(function (data) {
-          _this3.drawPieChart(410, 400, 0, "#plot1", data, 200);
-          _this3.drawBarChart(data, "#plot2");
-          _this3.relateToUml(Object.keys(data));
+          _this3.drawPieChart(410, 400, 0, "#plot1", data[0], 200);
+          _this3.drawBarChart(data[1], "#plot2", 400, 400);
+          _this3.relateToUml(Object.keys(data[0]));
         });
       });
     }

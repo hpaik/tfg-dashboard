@@ -87,19 +87,39 @@
 
 .row {
   #plot1{
-    width:100%;
     svg{
+      height
       text{
         font-size: 11px;
       }
     }
   }
   #plot2{
-    width:100%;
     svg{
       text{
         font-size: 11px;
       }
     }
+  }
+}
+
+#plot1{
+  svg {
+    display: block;
+    margin: auto;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    height: 450px;
+    width: 100%;
+  }
+}
+#plot2{
+  svg {
+    display: block;
+    margin: auto;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    height: 450px;
+    width: 100%;
   }
 }
