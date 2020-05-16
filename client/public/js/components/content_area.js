@@ -589,7 +589,7 @@ var Network = function (_Component) {
     value: function drawBarChart(_data, _htmlId) {
       // set the dimensions and margins of the graph
       var color = d3.scaleOrdinal().domain(Object.keys(_data)).range(d3.schemeDark2);
-      var margin = { top: 20, right: 20, bottom: 30, left: 40 },
+      var margin = { top: 20, right: 20, bottom: 20, left: 40 },
           width = 400 - margin.left - margin.right,
           height = 400 - margin.top - margin.bottom;
 
@@ -721,7 +721,7 @@ var Network = function (_Component) {
       var _this2 = this;
 
       _methods.forEach(function (element) {
-        var p = d3.selectAll('#' + element);
+        var p = d3.select('#' + element);
         p.on("click", function () {
           var id = _this2.findMethodInUML(element);
           var contract = d3.select("#uml").select('#' + id).select("polygon");

@@ -83,7 +83,7 @@ class Network extends Component {
     var color = d3.scaleOrdinal()
       .domain(Object.keys(_data))
       .range(d3.schemeDark2);
-    var margin = {top: 20, right: 20, bottom: 30, left: 40},
+    var margin = {top: 20, right: 20, bottom: 20, left: 40},
         width = 400 - margin.left - margin.right,
         height = 400 - margin.top - margin.bottom;
 
@@ -267,7 +267,7 @@ class Network extends Component {
 
   relateToUml(_methods) {
     _methods.forEach(element=>{
-      let p = d3.selectAll(`#${element}`);
+      let p = d3.select(`#${element}`);
       p.on("click", ()=>{
         let id = this.findMethodInUML(element);
         let contract = d3.select("#uml").select(`#${id}`).select("polygon");
