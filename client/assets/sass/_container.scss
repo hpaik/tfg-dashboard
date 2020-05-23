@@ -1,7 +1,18 @@
 @import url( 'https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700');
+
+
 #uml{
   width: 100%;
+  svg {
+    display: block;
+    margin: auto;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    height: 900px;
+    width: 100%;
+  }
 }
+
 #buttons{
     margin-top: 20px;
     position: absolute;
@@ -69,38 +80,10 @@
 .big-row{
   height: 90vh;
 }
-#uml{
-  svg {
-    display: block;
-    margin: auto;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    height: 900px;
-    width: 100%;
-  }
-}
 
 .col-12{
   margin-top: 10px;
   margin-bottom: 10px;
-}
-
-.row {
-  #plot1{
-    svg{
-      height
-      text{
-        font-size: 11px;
-      }
-    }
-  }
-  #plot2{
-    svg{
-      text{
-        font-size: 11px;
-      }
-    }
-  }
 }
 
 #plot1{

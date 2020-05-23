@@ -469,20 +469,30 @@ var Network = function (_Component) {
 
   _createClass(Network, [{
     key: 'getInput',
+
+
+    // this function reads the absolute path to the input data in the localhost
     value: function getInput() {
       var userInput = document.getElementById("sourceData").value;
       return userInput;
     }
+
+    // this function adds the passed ABI to the ABIDecoder for further usage when analyzing called functions in the input data
+
   }, {
     key: 'addAbi',
     value: function addAbi(_abi) {
       abiDecoder.addABI(_abi);
     }
+
+    // this function parses all the content in the nodes (contracts) of the UML diagram
+
   }, {
     key: 'getMethodsFromUML',
-    value: function getMethodsFromUML() {
+    value: function getMethodsFromUML(_htmlId) {
+      // obj[] has key>contract, value> contract content in string format
       var obj = [];
-      var data = d3.select("#uml").select("svg").selectAll("g");
+      var data = d3.select(_htmlId).select("svg").selectAll("g");
       //all contracts
       data._groups.forEach(function (d) {
         d.forEach(function (element) {
@@ -492,30 +502,47 @@ var Network = function (_Component) {
       });
       return obj;
     }
+
+    // this function looks for a specific method in the UML Diagram+
+
   }, {
     key: 'findMethodInUML',
-    value: function findMethodInUML(_method) {
-      var _obj = this.getMethodsFromUML();
+    value: function findMethodInUML(_method, _htmlId) {
+      var _obj = this.getMethodsFromUML(_htmlId);
+      //result contains the contracts were the method appears
       var result = [];
       Object.keys(_obj).forEach(function (data) {
+        // if we find a matching method in the string, search() returns a value > 0
         if (_obj[data].search(_method) >= 0) {
           result.push(data);
         }
       });
+      // we return[2] beacuse the first nodes to contain the method, are graph0 and the UML full diagram (parent nodes)
       return result[2];
     }
+
+    // this function computes the logic to find out how many times a function has been called in the input data
+
   }, {
     key: 'methodNumberOfCalls',
     value: function methodNumberOfCalls(_data) {
+
+      // _mapping contains a mapping of method -> # of calls
       var _mapping = new Map();
+      // _mapping2 contains a mapping of method -> average gas consumed
       var _mapping2 = new Map();
+      //array containing the methods parsed
       var contractMethods = [];
+      // obj is the object format of _mapping
       var obj = {};
+      // obj2 is the object format of _mapping2
       var obj2 = {};
 
       for (var i = 0; i < _data.length; i++) {
+        // decodedData. is the name of the function we extract with the abiDecoder from the raw input_hex
+        // `(0x${_data[i].input_hex}`).name -> format of the input hex data
         var decodedData = abiDecoder.decodeMethod('0x' + _data[i].input_hex).name;
-        //array containing the methods parsed
+
         if (!contractMethods.includes(decodedData)) {
           contractMethods.push(decodedData);
           _mapping.set(decodedData, 0);
@@ -525,6 +552,7 @@ var Network = function (_Component) {
           _mapping2.set(decodedData, _mapping.get(decodedData) + _data[i].gas_used * _data[i].gas_price);
         }
       }
+      // _mappings -> objects
       var cont = 0;
       contractMethods.forEach(function (d) {
         obj[d] = _mapping.get(d);
@@ -532,10 +560,13 @@ var Network = function (_Component) {
       });
       return [obj, obj2];
     }
+
+    // get ABI from .json file
+
   }, {
     key: 'getAbi',
     value: function () {
-      var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+      var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(_AbiFileName) {
         var result, response, jsonResponse, i;
         return regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
@@ -544,7 +575,7 @@ var Network = function (_Component) {
                 result = [];
                 _context.prev = 1;
                 _context.next = 4;
-                return fetch("abi.json");
+                return fetch(_AbiFileName);
 
               case 4:
                 response = _context.sent;
@@ -584,12 +615,15 @@ var Network = function (_Component) {
         }, _callee, this, [[1, 14]]);
       }));
 
-      function getAbi() {
+      function getAbi(_x) {
         return _ref.apply(this, arguments);
       }
 
       return getAbi;
     }()
+
+    // View Type -> BarChart
+
   }, {
     key: 'drawBarChart',
     value: function drawBarChart(_data, _htmlId, _width, _height) {
@@ -636,6 +670,8 @@ var Network = function (_Component) {
       // add the y Axis
       svg.append("g").call(d3.axisLeft(y));
     }
+    // View Type -> Pie chart
+
   }, {
     key: 'drawPieChart',
     value: function drawPieChart(_width, _height, _margin, _htmlId, _data, _radius) {
@@ -721,16 +757,23 @@ var Network = function (_Component) {
               return (midangle < Math.PI ? 'start' : 'end')
           })*/
     }
+
+    // this function establishes a 'clickable' relationship between the UML and the Graphs
+
   }, {
     key: 'relateToUml',
-    value: function relateToUml(_methods) {
+    value: function relateToUml(_methods, _htmlId) {
       var _this2 = this;
 
+      // _methods contains the parsed methods of the input data
+
       _methods.forEach(function (element) {
+        //p is the html <> created for each function, it has the id with the function name
         var p = d3.selectAll('#' + element);
+        // addEvenetListeners to each html <>
         p.on("click", function () {
-          var id = _this2.findMethodInUML(element);
-          var contract = d3.select("#uml").select('#' + id).select("polygon");
+          var id = _this2.findMethodInUML(element, _htmlId);
+          var contract = d3.select(_htmlId).select('#' + id).select("polygon");
           if (id === 'Not found') {};
           if (contract.attr("fill") === "red") {
             contract.attr("fill", "#f2f2f2");
@@ -740,12 +783,16 @@ var Network = function (_Component) {
         });
       });
     }
+
+    // this is the function called when the 'graph' button is pressed
+    // it parses de ABI, reads the input data, computes logic on raw data and plots
+
   }, {
     key: 'getData',
     value: function getData() {
       var _this3 = this;
 
-      this.getAbi().then(function (data) {
+      this.getAbi("abi.json").then(function (data) {
         _this3.addAbi(data);
       }).then(function () {
         d3.csv("data.csv").then(function (data) {
@@ -753,7 +800,7 @@ var Network = function (_Component) {
         }).then(function (data) {
           _this3.drawPieChart(410, 400, 0, "#plot1", data[0], 200);
           _this3.drawBarChart(data[1], "#plot2", 400, 400);
-          _this3.relateToUml(Object.keys(data[0]));
+          _this3.relateToUml(Object.keys(data[0]), "#uml");
         });
       });
     }

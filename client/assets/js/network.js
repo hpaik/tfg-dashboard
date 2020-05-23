@@ -6,18 +6,23 @@ const abiDecoder = require('abi-decoder');
 
 class Network extends Component {
 
+
+  // this function reads the absolute path to the input data in the localhost
   getInput(){
     let userInput = document.getElementById("sourceData").value;
     return userInput;
   }
 
+  // this function adds the passed ABI to the ABIDecoder for further usage when analyzing called functions in the input data
   addAbi(_abi) {
     abiDecoder.addABI(_abi);
   }
 
-  getMethodsFromUML() {
+  // this function parses all the content in the nodes (contracts) of the UML diagram
+  getMethodsFromUML(_htmlId) {
+    // obj[] has key>contract, value> contract content in string format
     let obj = [];
-    let data = d3.select("#uml").select("svg").selectAll("g");
+    let data = d3.select(_htmlId).select("svg").selectAll("g");
       //all contracts
     data._groups.forEach(d=>{
       d.forEach(function(element){
@@ -28,37 +33,51 @@ class Network extends Component {
     return obj;
   }
 
-  findMethodInUML(_method) {
-    let _obj = this.getMethodsFromUML();
+  // this function looks for a specific method in the UML Diagram+
+  findMethodInUML(_method, _htmlId) {
+    let _obj = this.getMethodsFromUML(_htmlId);
+    //result contains the contracts were the method appears
     let result = [];
     Object.keys(_obj).forEach(function(data){
+      // if we find a matching method in the string, search() returns a value > 0
       if(_obj[data].search(_method) >= 0){
         result.push(data)
       }
     });
+    // we return[2] beacuse the first nodes to contain the method, are graph0 and the UML full diagram (parent nodes)
     return result[2];
   }
 
+  // this function computes the logic to find out how many times a function has been called in the input data
   methodNumberOfCalls(_data) {
+
+    // _mapping contains a mapping of method -> # of calls
     let _mapping = new Map();
+    // _mapping2 contains a mapping of method -> average gas consumed
     let _mapping2 = new Map();
+    //array containing the methods parsed
     let contractMethods = [];
+    // obj is the object format of _mapping
     let obj = {};
+    // obj2 is the object format of _mapping2
     let obj2 = {};
 
 
     for (var i = 0; i < _data.length; i++) {
+      // decodedData. is the name of the function we extract with the abiDecoder from the raw input_hex
+      // `(0x${_data[i].input_hex}`).name -> format of the input hex data
       let decodedData = abiDecoder.decodeMethod(`0x${_data[i].input_hex}`).name;
-      //array containing the methods parsed
+
       if(!(contractMethods.includes(decodedData))) {
         contractMethods.push(decodedData);
         _mapping.set(decodedData, 0);
-        _mapping2.set(decodedData, _data[i].gas_used*_data[i].gas_price);
+        _mapping2.set(decodedData,_data[i].gas_used*_data[i].gas_price);
       }else {
         _mapping.set(decodedData, _mapping.get(decodedData)+1);
         _mapping2.set(decodedData, _mapping.get(decodedData) + _data[i].gas_used*_data[i].gas_price);
       }
     }
+    // _mappings -> objects
     let cont = 0;
     contractMethods.forEach(function(d){
       obj[d] = _mapping.get(d);
@@ -67,11 +86,11 @@ class Network extends Component {
     return [obj, obj2];
   }
 
-
-  async getAbi(){
+  // get ABI from .json file
+  async getAbi(_AbiFileName){
     let result = [];
     try {
-      const response = await fetch("abi.json");
+      const response = await fetch(_AbiFileName);
       if (response.ok) {
         const jsonResponse = await response.json();
         console.log('JSON parsed successfully...');
@@ -86,6 +105,7 @@ class Network extends Component {
     }
   }
 
+  // View Type -> BarChart
   drawBarChart(_data, _htmlId, _width, _height) {
     // set the dimensions and margins of the graph
     var color = d3.scaleOrdinal()
@@ -164,6 +184,7 @@ class Network extends Component {
 
 
   }
+  // View Type -> Pie chart
 
   drawPieChart(_width, _height, _margin, _htmlId, _data,_radius) {
     //create object from mapping
@@ -273,12 +294,18 @@ class Network extends Component {
         })*/
   }
 
-  relateToUml(_methods) {
+
+  // this function establishes a 'clickable' relationship between the UML and the Graphs
+  relateToUml(_methods, _htmlId) {
+    // _methods contains the parsed methods of the input data
+
     _methods.forEach(element=>{
+      //p is the html <> created for each function, it has the id with the function name
       let p = d3.selectAll(`#${element}`);
+      // addEvenetListeners to each html <>
       p.on("click", ()=>{
-        let id = this.findMethodInUML(element);
-        let contract = d3.select("#uml").select(`#${id}`).select("polygon");
+        let id = this.findMethodInUML(element, _htmlId);
+        let contract = d3.select(_htmlId).select(`#${id}`).select("polygon");
         if(id === 'Not found'){};
         if(contract.attr("fill") === "red"){
           contract.attr("fill","#f2f2f2");
@@ -290,9 +317,12 @@ class Network extends Component {
     });
   }
 
+
+  // this is the function called when the 'graph' button is pressed
+  // it parses de ABI, reads the input data, computes logic on raw data and plots
   getData() {
 
-    this.getAbi().then(data =>{
+    this.getAbi("abi.json").then(data =>{
       this.addAbi(data)
     }).then(()=>{
       d3.csv("data.csv").then(data => {
@@ -300,7 +330,7 @@ class Network extends Component {
       }).then(data => {
         this.drawPieChart(410, 400, 0, "#plot1", data[0], 200);
         this.drawBarChart(data[1], "#plot2", 400, 400);
-        this.relateToUml(Object.keys(data[0]));
+        this.relateToUml(Object.keys(data[0]), "#uml");
 
       });
     });
