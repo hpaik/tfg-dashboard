@@ -6,6 +6,7 @@ class Plot1 extends Component {
   render () {
     return (
       <div id="plot1">
+        <p> Pending to Generate Plot . . . </p>
       </div>
     );
   }

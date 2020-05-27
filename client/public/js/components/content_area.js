@@ -403,7 +403,7 @@ var ContentArea = function (_Component) {
       return _react2.default.createElement(
         'div',
         null,
-        _react2.default.createElement(_heading2.default, { title: 'Dashboard', description: 'This is our dashboard' }),
+        _react2.default.createElement(_heading2.default, { title: 'DAPP Analysis Dashboard', description: 'This dashboard was developed to aid Ethereum developers in visually statically and dynamically analyzing their DAPP' }),
         _react2.default.createElement(_containerFluid2.default, null)
       );
     }
@@ -934,7 +934,15 @@ var Plot1 = function (_Component) {
   _createClass(Plot1, [{
     key: 'render',
     value: function render() {
-      return _react2.default.createElement('div', { id: 'plot1' });
+      return _react2.default.createElement(
+        'div',
+        { id: 'plot1' },
+        _react2.default.createElement(
+          'p',
+          null,
+          ' Pending to Generate Plot . . . '
+        )
+      );
     }
   }]);
 
@@ -985,7 +993,15 @@ var Plot2 = function (_Component) {
   _createClass(Plot2, [{
     key: 'render',
     value: function render() {
-      return _react2.default.createElement('div', { id: 'plot2' });
+      return _react2.default.createElement(
+        'div',
+        { id: 'plot2' },
+        _react2.default.createElement(
+          'p',
+          null,
+          ' Pending to Generate Plot . . . '
+        )
+      );
     }
   }]);
 
@@ -1036,7 +1052,15 @@ var Uml = function (_Component) {
   _createClass(Uml, [{
     key: 'render',
     value: function render() {
-      return _react2.default.createElement('div', { id: 'uml' });
+      return _react2.default.createElement(
+        'div',
+        { id: 'uml' },
+        _react2.default.createElement(
+          'p',
+          null,
+          ' Pending to Generate Diagram . . . '
+        )
+      );
     }
   }]);
 
@@ -1344,6 +1368,11 @@ var ValuesForm = function (_Component) {
           'div',
           { className: 'input-group md-form form-sm form-2 pl-0' },
           _react2.default.createElement('input', { id: 'insertName', className: 'form-control my-0 py-1 red-border', type: 'text', placeholder: 'Insert Address / absolute PATH', 'aria-label': 'Search' })
+        ),
+        _react2.default.createElement(
+          'p',
+          null,
+          'Which type of contract do you want to hide?'
         ),
         _react2.default.createElement(
           'form',

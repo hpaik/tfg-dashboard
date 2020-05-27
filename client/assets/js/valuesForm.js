@@ -67,6 +67,7 @@ class ValuesForm extends Component {
         <div className="input-group md-form form-sm form-2 pl-0">
           <input  id="insertName" className="form-control my-0 py-1 red-border" type="text" placeholder="Insert Address / absolute PATH" aria-label="Search" />
         </div>
+        <p>Which type of contract do you want to hide?</p>
         <form>
           {items}
         </form>

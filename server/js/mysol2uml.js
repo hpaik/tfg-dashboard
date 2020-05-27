@@ -65,7 +65,8 @@ async function umlClassesParser(_fileFolderAddress){
     }
     else {
         //const depthLimit = parseInt(program.depthLimit);
-        const depthLimit = -1;
+        let url = fileFolderAddress;
+        const depthLimit = url.split(/[?#]/).shift().match(/\/[^/]+?/g).length;;
         /*if (isNaN(depthLimit)) {
             console.error(`depthLimit option must be an integer. Not ${program.depthLimit}`);
             process.exit(1);
