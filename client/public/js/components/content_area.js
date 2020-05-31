@@ -472,8 +472,8 @@ var Network = function (_Component) {
 
 
     // this function reads the absolute path to the input data in the localhost
-    value: function getInput() {
-      var userInput = document.getElementById("sourceData").value;
+    value: function getInput(_htmlId) {
+      var userInput = document.getElementById(_htmlId).value;
       return userInput;
     }
 
@@ -546,10 +546,10 @@ var Network = function (_Component) {
         if (!contractMethods.includes(decodedData)) {
           contractMethods.push(decodedData);
           _mapping.set(decodedData, 0);
-          _mapping2.set(decodedData, _data[i].gas_used * _data[i].gas_price);
+          _mapping2.set(decodedData, _data[i].gas_used);
         } else {
           _mapping.set(decodedData, _mapping.get(decodedData) + 1);
-          _mapping2.set(decodedData, _mapping.get(decodedData) + _data[i].gas_used * _data[i].gas_price);
+          _mapping2.set(decodedData, _mapping.get(decodedData) + _data[i].gas_used);
         }
       }
       // _mappings -> objects
@@ -792,10 +792,10 @@ var Network = function (_Component) {
     value: function getData() {
       var _this3 = this;
 
-      this.getAbi("abi.json").then(function (data) {
+      this.getAbi('/input_abi/' + this.getInput("sourceAbi")).then(function (data) {
         _this3.addAbi(data);
       }).then(function () {
-        d3.csv("data.csv").then(function (data) {
+        d3.csv('/input_data/' + _this3.getInput("sourceData")).then(function (data) {
           return _this3.methodNumberOfCalls(data);
         }).then(function (data) {
           _this3.drawPieChart(410, 400, 0, "#plot1", data[0], 200);
@@ -815,7 +815,8 @@ var Network = function (_Component) {
         _react2.default.createElement(
           'div',
           { className: 'input-group md-form form-sm form-2 pl-0' },
-          _react2.default.createElement('input', { id: 'sourceData', className: 'form-control my-0 py-1 red-border', type: 'text', placeholder: 'Add PATH to source data', 'aria-label': 'Search' })
+          _react2.default.createElement('input', { id: 'sourceData', className: 'form-control my-0 py-1 red-border', type: 'text', placeholder: 'Add PATH to source data', 'aria-label': 'Search' }),
+          _react2.default.createElement('input', { id: 'sourceAbi', className: 'form-control my-0 py-1 red-border', type: 'text', placeholder: 'Add PATH to source ABI', 'aria-label': 'Search' })
         ),
         _react2.default.createElement(
           'button',

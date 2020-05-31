@@ -8,8 +8,8 @@ class Network extends Component {
 
 
   // this function reads the absolute path to the input data in the localhost
-  getInput(){
-    let userInput = document.getElementById("sourceData").value;
+  getInput(_htmlId){
+    let userInput = document.getElementById(_htmlId).value;
     return userInput;
   }
 
@@ -71,10 +71,10 @@ class Network extends Component {
       if(!(contractMethods.includes(decodedData))) {
         contractMethods.push(decodedData);
         _mapping.set(decodedData, 0);
-        _mapping2.set(decodedData,_data[i].gas_used*_data[i].gas_price);
+        _mapping2.set(decodedData,_data[i].gas_used);
       }else {
         _mapping.set(decodedData, _mapping.get(decodedData)+1);
-        _mapping2.set(decodedData, _mapping.get(decodedData) + _data[i].gas_used*_data[i].gas_price);
+        _mapping2.set(decodedData, _mapping.get(decodedData) + _data[i].gas_used);
       }
     }
     // _mappings -> objects
@@ -322,10 +322,10 @@ class Network extends Component {
   // it parses de ABI, reads the input data, computes logic on raw data and plots
   getData() {
 
-    this.getAbi("abi.json").then(data =>{
+    this.getAbi(`/input_abi/${this.getInput("sourceAbi")}`).then(data =>{
       this.addAbi(data)
     }).then(()=>{
-      d3.csv("data.csv").then(data => {
+      d3.csv(`/input_data/${this.getInput("sourceData")}`).then(data => {
         return this.methodNumberOfCalls(data);
       }).then(data => {
         this.drawPieChart(410, 400, 0, "#plot1", data[0], 200);
@@ -346,6 +346,7 @@ class Network extends Component {
         <OptionDisplayer title="Network analysis" options={['Method calls', 'Method costs', 'Greeting']}/>
         <div className="input-group md-form form-sm form-2 pl-0">
           <input  id="sourceData" className="form-control my-0 py-1 red-border" type="text" placeholder="Add PATH to source data" aria-label="Search" />
+          <input  id="sourceAbi" className="form-control my-0 py-1 red-border" type="text" placeholder="Add PATH to source ABI" aria-label="Search" />
         </div>
         <button onClick={this.getData.bind(this)} type="button" className="btn btn-success">Graph</button>
       </div>
