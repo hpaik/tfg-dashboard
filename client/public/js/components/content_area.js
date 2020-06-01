@@ -403,7 +403,7 @@ var ContentArea = function (_Component) {
       return _react2.default.createElement(
         'div',
         null,
-        _react2.default.createElement(_heading2.default, { title: 'DAPP Analysis Dashboard', description: 'This dashboard was developed to aid Ethereum developers in visually statically and dynamically analyzing their DAPP' }),
+        _react2.default.createElement(_heading2.default, { title: 'Smart Contracts Analysis Dashboard', description: 'This dashboard was developed to aid Ethereum developers in visually statically and dynamically analyzing their Smart Contracts' }),
         _react2.default.createElement(_containerFluid2.default, null)
       );
     }
@@ -674,7 +674,7 @@ var Network = function (_Component) {
 
   }, {
     key: 'drawPieChart',
-    value: function drawPieChart(_width, _height, _margin, _htmlId, _data, _radius) {
+    value: function drawPieChart(_width, _height, _margin, _htmlId, _data, _radius, _content) {
       //create object from mapping
       // set the dimensions and margins of the graph
       var width = _width;
@@ -709,7 +709,7 @@ var Network = function (_Component) {
       // Build the pie chart: Basically, each part of the pie is a path that we build using the arc function.
       svg.selectAll('allSlices').data(data_ready).enter().append('path').on("mouseover", function (d) {
 
-        tooltip.text('Function: ' + d.data.key + '() | Number of calls: ' + d.data.value);
+        tooltip.text('Function: ' + d.data.key + '() | ' + _content + ': ' + d.data.value);
         return tooltip.style("visibility", "visible");
       }).on("mousemove", function () {
         return tooltip.style("top", event.pageY - 10 + "px").style("left", event.pageX + 10 + "px");
@@ -798,8 +798,11 @@ var Network = function (_Component) {
         d3.csv('/input_data/' + _this3.getInput("sourceData")).then(function (data) {
           return _this3.methodNumberOfCalls(data);
         }).then(function (data) {
-          _this3.drawPieChart(410, 400, 0, "#plot1", data[0], 200);
-          _this3.drawBarChart(data[1], "#plot2", 400, 400);
+          // data [0] is the # of functions calls
+          // data [1] is the average gas expense
+          _this3.drawPieChart(410, 400, 0, "#plot1", data[0], 200, "Number of calls");
+          _this3.drawPieChart(410, 400, 0, "#plot2", data[1], 200, "Average Gas expense");
+          //this.drawBarChart(data[1], "#plot2", 400, 400);
           _this3.relateToUml(Object.keys(data[0]), "#uml");
         });
       });

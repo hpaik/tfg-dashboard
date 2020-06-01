@@ -8,7 +8,7 @@ class ContentArea extends Component {
   render () {
     return (
       <div>
-        <Heading title="DAPP Analysis Dashboard" description="This dashboard was developed to aid Ethereum developers in visually statically and dynamically analyzing their DAPP" />
+        <Heading title="Smart Contracts Analysis Dashboard" description="This dashboard was developed to aid Ethereum developers in visually statically and dynamically analyzing their Smart Contracts" />
         <Container />
       </div>
     )

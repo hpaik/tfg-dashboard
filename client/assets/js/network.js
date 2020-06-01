@@ -186,7 +186,7 @@ class Network extends Component {
   }
   // View Type -> Pie chart
 
-  drawPieChart(_width, _height, _margin, _htmlId, _data,_radius) {
+  drawPieChart(_width, _height, _margin, _htmlId, _data,_radius, _content) {
     //create object from mapping
     // set the dimensions and margins of the graph
     var width = _width
@@ -245,7 +245,7 @@ class Network extends Component {
       .append('path')
       .on("mouseover", function(d){
 
-        tooltip.text(`Function: ${d.data.key}() | Number of calls: ${d.data.value}`);
+        tooltip.text(`Function: ${d.data.key}() | ${_content}: ${d.data.value}`);
         return tooltip.style("visibility", "visible")
       })
     	.on("mousemove", function(){return tooltip.style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px");})
@@ -328,8 +328,11 @@ class Network extends Component {
       d3.csv(`/input_data/${this.getInput("sourceData")}`).then(data => {
         return this.methodNumberOfCalls(data);
       }).then(data => {
-        this.drawPieChart(410, 400, 0, "#plot1", data[0], 200);
-        this.drawBarChart(data[1], "#plot2", 400, 400);
+        // data [0] is the # of functions calls
+        // data [1] is the average gas expense
+        this.drawPieChart(410, 400, 0, "#plot1", data[0], 200, "Number of calls");
+        this.drawPieChart(410, 400, 0, "#plot2", data[1], 200, "Average Gas expense");
+        //this.drawBarChart(data[1], "#plot2", 400, 400);
         this.relateToUml(Object.keys(data[0]), "#uml");
 
       });
