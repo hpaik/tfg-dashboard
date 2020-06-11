@@ -1,10 +1,10 @@
-Bachelor's Final Thesis Project - Guillermo Cobo Arroniz
+**Bachelor's Final Thesis Project - Guillermo Cobo Arroniz**
 
-VISUAL ANALYSIS OF BLOCKCHAIN APPLICATIONS 
+*VISUAL ANALYSIS OF BLOCKCHAIN APPLICATIONS* 
 
-For execution:
+**For execution:**
 
-1) run npm install on package.json
+1) run npm install
 
 on /client:
   -> npm run watch
@@ -12,11 +12,11 @@ on /client:
 on /server:
   -> node server.js
 
-Client in localhost:3000
+*Client in localhost:3000*
 
-Server in localhost:8080
+*Server in localhost:8080*
 
-For input data plotting:
+**For input data plotting:**
 
 1) Transaction data has to be stored in the folder /client/public/input_data in a .csv
 2) ABI contract file has to be stored in the folder /client/public/input_abi in a .json
