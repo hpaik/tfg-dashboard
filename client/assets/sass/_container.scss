@@ -8,7 +8,7 @@
     margin: auto;
     padding-top: 20px;
     padding-bottom: 20px;
-    height: 900px;
+    height: 88vh;
     width: 100%;
   }
   p {
@@ -86,7 +86,7 @@
   }
 }
 .big-row{
-  height: 90vh;
+  max-height: 90vh;
 }
 
 .col-12{
@@ -100,7 +100,7 @@
     margin: auto;
     padding-top: 20px;
     padding-bottom: 20px;
-    height: 450px;
+    max-height: 42vh;
     width: 100%;
   }
   p {
@@ -114,7 +114,7 @@
     margin: auto;
     padding-top: 20px;
     padding-bottom: 20px;
-    height: 450px;
+    max-height: 42vh;
     width: 100%;
   }
   p {

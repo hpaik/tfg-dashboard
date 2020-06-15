@@ -1,6 +1,6 @@
 webpackJsonp([1],{
 
-/***/ 254:
+/***/ 289:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -97,4 +97,4 @@ var Sidemenu = function (_Component) {
 
 /***/ })
 
-},[254]);
+},[289]);
