@@ -4,7 +4,7 @@
 
 **For execution:**
 
-1) run npm install
+1) run npm install on /client and /server
 
 on /client:
   -> npm run watch
