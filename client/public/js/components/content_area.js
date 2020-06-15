@@ -814,7 +814,7 @@ var Network = function (_Component) {
       return _react2.default.createElement(
         'div',
         null,
-        _react2.default.createElement(_optionDisplay2.default, { title: 'Network analysis', options: ['Method calls', 'Method costs', 'Greeting'] }),
+        _react2.default.createElement(_optionDisplay2.default, { title: 'Network analysis', options: ['Function calls and gas expenses'] }),
         _react2.default.createElement(
           'div',
           { className: 'input-group md-form form-sm form-2 pl-0' },
@@ -1149,7 +1149,7 @@ var UmlStyler = function (_Component) {
       return _react2.default.createElement(
         'div',
         null,
-        _react2.default.createElement(_optionDisplay2.default, { title: 'Diagram Interactivity', options: ['Select Element', 'Delete Node', 'Greeting'] }),
+        _react2.default.createElement(_optionDisplay2.default, { title: 'Diagram Interactivity', options: ['Select Element'] }),
         _react2.default.createElement(
           'div',
           { className: 'input-group md-form form-sm form-2 pl-0' },

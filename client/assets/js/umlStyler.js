@@ -26,7 +26,7 @@ class UmlStyler extends Component {
 
     return (
       <div>
-        <OptionDisplayer title="Diagram Interactivity" options={['Select Element', 'Delete Node', 'Greeting']}/>
+        <OptionDisplayer title="Diagram Interactivity" options={['Select Element']}/>
         <div className="input-group md-form form-sm form-2 pl-0">
           <input  id="contractSearch" className="form-control my-0 py-1 red-border" type="text" placeholder="Search" aria-label="Search" />
         </div>

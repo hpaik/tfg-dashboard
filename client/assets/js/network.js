@@ -346,7 +346,7 @@ class Network extends Component {
 
     return (
       <div>
-        <OptionDisplayer title="Network analysis" options={['Method calls', 'Method costs', 'Greeting']}/>
+        <OptionDisplayer title="Network analysis" options={['Function calls and gas expenses']}/>
         <div className="input-group md-form form-sm form-2 pl-0">
           <input  id="sourceData" className="form-control my-0 py-1 red-border" type="text" placeholder="Add PATH to source data" aria-label="Search" />
           <input  id="sourceAbi" className="form-control my-0 py-1 red-border" type="text" placeholder="Add PATH to source ABI" aria-label="Search" />
