@@ -494,6 +494,7 @@ var Network = function (_Component) {
       var obj = [];
       var data = d3.select(_htmlId).select("svg").selectAll("g");
       //all contracts
+      console.log(data._groups);
       data._groups.forEach(function (d) {
         d.forEach(function (element) {
           //each of the elements
@@ -542,14 +543,13 @@ var Network = function (_Component) {
         // decodedData. is the name of the function we extract with the abiDecoder from the raw input_hex
         // `(0x${_data[i].input_hex}`).name -> format of the input hex data
         var decodedData = abiDecoder.decodeMethod('0x' + _data[i].input_hex).name;
-
         if (!contractMethods.includes(decodedData)) {
           contractMethods.push(decodedData);
           _mapping.set(decodedData, 0);
-          _mapping2.set(decodedData, _data[i].gas_used);
+          _mapping2.set(decodedData, _data[i].gas_used * 1e-100);
         } else {
           _mapping.set(decodedData, _mapping.get(decodedData) + 1);
-          _mapping2.set(decodedData, _mapping.get(decodedData) + _data[i].gas_used);
+          _mapping2.set(decodedData, (_mapping2.get(decodedData) + _data[i].gas_used) * 1e-100);
         }
       }
       // _mappings -> objects
@@ -814,7 +814,7 @@ var Network = function (_Component) {
       return _react2.default.createElement(
         'div',
         null,
-        _react2.default.createElement(_optionDisplay2.default, { title: 'Network analysis', options: ['Function calls and gas expenses'] }),
+        _react2.default.createElement(_optionDisplay2.default, { title: 'Network Analysis', options: ['Function calls and gas expenses'] }),
         _react2.default.createElement(
           'div',
           { className: 'input-group md-form form-sm form-2 pl-0' },

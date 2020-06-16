@@ -24,6 +24,7 @@ class Network extends Component {
     let obj = [];
     let data = d3.select(_htmlId).select("svg").selectAll("g");
       //all contracts
+      console.log(data._groups);
     data._groups.forEach(d=>{
       d.forEach(function(element){
         //each of the elements
@@ -67,14 +68,13 @@ class Network extends Component {
       // decodedData. is the name of the function we extract with the abiDecoder from the raw input_hex
       // `(0x${_data[i].input_hex}`).name -> format of the input hex data
       let decodedData = abiDecoder.decodeMethod(`0x${_data[i].input_hex}`).name;
-
       if(!(contractMethods.includes(decodedData))) {
         contractMethods.push(decodedData);
         _mapping.set(decodedData, 0);
-        _mapping2.set(decodedData,_data[i].gas_used);
+        _mapping2.set(decodedData,_data[i].gas_used*1e-100);
       }else {
         _mapping.set(decodedData, _mapping.get(decodedData)+1);
-        _mapping2.set(decodedData, _mapping.get(decodedData) + _data[i].gas_used);
+        _mapping2.set(decodedData, (_mapping2.get(decodedData) + _data[i].gas_used)*1e-100);
       }
     }
     // _mappings -> objects
@@ -346,7 +346,7 @@ class Network extends Component {
 
     return (
       <div>
-        <OptionDisplayer title="Network analysis" options={['Function calls and gas expenses']}/>
+        <OptionDisplayer title="Network Analysis" options={['Function calls and gas expenses']}/>
         <div className="input-group md-form form-sm form-2 pl-0">
           <input  id="sourceData" className="form-control my-0 py-1 red-border" type="text" placeholder="Add PATH to source data" aria-label="Search" />
           <input  id="sourceAbi" className="form-control my-0 py-1 red-border" type="text" placeholder="Add PATH to source ABI" aria-label="Search" />
