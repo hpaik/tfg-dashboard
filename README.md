@@ -21,6 +21,7 @@ on /server:
 1) Generate UML of smart contracts: *0x06012c8cf97bead5deae237070f9587f8e7a266d*
 2) Highlight specific contracts: Type contract name in form *Diagram Interactivity*
 3) For dynamic analysis in *Network analysis*: Type *cryptokittiesTransactions.csv* and *cryptokittiesAbi.json*
+![alt text](https://github.com/gulycat1214/tfg-dashboard/blob/master/appDiagrams/appCFG.png?raw=true)
 
 **For input data plotting:**
 
