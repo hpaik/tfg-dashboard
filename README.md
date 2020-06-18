@@ -3,9 +3,11 @@
 *VISUAL ANALYSIS OF BLOCKCHAIN APPLICATIONS* 
 
 **Application CFG:**
+The application control flow graph
 ![alt text](https://github.com/gulycat1214/tfg-dashboard/blob/master/appDiagrams/appCFG.png?raw=true)
 
 **Dashboard Stack:**
+The application stack
 ![alt text](https://github.com/gulycat1214/tfg-dashboard/blob/master/appDiagrams/architectureDiagram.png?raw=true)
 
 **For execution:**
