@@ -494,7 +494,6 @@ var Network = function (_Component) {
       var obj = [];
       var data = d3.select(_htmlId).select("svg").selectAll("g");
       //all contracts
-      console.log(data._groups);
       data._groups.forEach(function (d) {
         d.forEach(function (element) {
           //each of the elements
@@ -545,11 +544,11 @@ var Network = function (_Component) {
         var decodedData = abiDecoder.decodeMethod('0x' + _data[i].input_hex).name;
         if (!contractMethods.includes(decodedData)) {
           contractMethods.push(decodedData);
-          _mapping.set(decodedData, 0);
-          _mapping2.set(decodedData, _data[i].gas_used * 1e-100);
+          _mapping.set(decodedData, 1);
+          _mapping2.set(decodedData, parseInt(_data[i].gas_used));
         } else {
           _mapping.set(decodedData, _mapping.get(decodedData) + 1);
-          _mapping2.set(decodedData, (_mapping2.get(decodedData) + _data[i].gas_used) * 1e-100);
+          _mapping2.set(decodedData, _mapping2.get(decodedData) + parseInt(_data[i].gas_used));
         }
       }
       // _mappings -> objects
@@ -558,6 +557,7 @@ var Network = function (_Component) {
         obj[d] = _mapping.get(d);
         obj2[d] = _mapping2.get(d) / _mapping.get(d);
       });
+
       return [obj, obj2];
     }
 
