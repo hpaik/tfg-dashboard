@@ -1,5 +1,5 @@
-<img src="https://github.com/gulycat1214/tfg-dashboard/blob/master/appDiagrams/upc-tech.png" height="100" width="475">
-<img src="https://github.com/gulycat1214/tfg-dashboard/blob/master/appDiagrams/unsw.png" height="100" width="250">
+<img src="https://github.com/gulycat1214/tfg-dashboard/blob/master/appDiagrams/upc-tech.png" height="70" width="350">
+<img src="https://github.com/gulycat1214/tfg-dashboard/blob/master/appDiagrams/unsw.png" height="100" width="220">
 
 
 **Bachelor's Final Thesis Project - Guillermo Cobo Arroniz**
