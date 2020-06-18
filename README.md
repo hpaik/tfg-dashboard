@@ -1,3 +1,6 @@
+![alt text](https://github.com/gulycat1214/tfg-dashboard/blob/master/appDiagrams/upc-tech.png?raw=true)
+![alt text](https://github.com/gulycat1214/tfg-dashboard/blob/master/appDiagrams/unsw.png?raw=true)
+
 **Bachelor's Final Thesis Project - Guillermo Cobo Arroniz**
 
 *VISUAL ANALYSIS OF BLOCKCHAIN APPLICATIONS* 
