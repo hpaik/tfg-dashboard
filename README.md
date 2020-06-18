@@ -1,7 +1,5 @@
-![alt text](https://github.com/gulycat1214/tfg-dashboard/blob/master/appDiagrams/upc-tech.png?raw=true?height=10?width=10)
-![alt text](https://github.com/gulycat1214/tfg-dashboard/blob/master/appDiagrams/unsw.png?raw=true)
-<img src="https://github.com/gulycat1214/tfg-dashboard/blob/master/appDiagrams/upc-tech.png" height="24" width="48">
-<img src="https://github.com/gulycat1214/tfg-dashboard/blob/master/appDiagrams/unsw.png" height="24" width="48">
+<img src="https://github.com/gulycat1214/tfg-dashboard/blob/master/appDiagrams/upc-tech.png" height="100" width="100">
+<img src="https://github.com/gulycat1214/tfg-dashboard/blob/master/appDiagrams/unsw.png" height="100" width="100">
 
 
 **Bachelor's Final Thesis Project - Guillermo Cobo Arroniz**
