@@ -10,8 +10,8 @@
 The application control flow graph<br/>
 ![alt text](https://github.com/gulycat1214/tfg-dashboard/blob/master/appDiagrams/appCFG.png?raw=true)
 
-**Dashboard Stack:**
-The application stack
+**Dashboard structure:**
+The application structure
 ![alt text](https://github.com/gulycat1214/tfg-dashboard/blob/master/appDiagrams/architectureDiagram.png?raw=true)
 
 **For execution:**
